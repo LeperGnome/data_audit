@@ -67,4 +67,4 @@ class DocParser:
                         header = cell.text
             table_values = self.clear_table_vetors(table_values)
             self.vectors.append(table_values)
-        self.vectors = [vector for vector in self.vectors if vector]
+        self.vectors = [dict(vector) for vector in self.vectors if vector]

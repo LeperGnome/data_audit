@@ -1,12 +1,17 @@
+import docx
 from django.shortcuts import render
 from django.http import HttpResponse
-import docx
+from utilits.doc_parser import DocParser
 
 
 def index(request):
     return render(request, 'index.html')
 
+
 def send_file(request):
     doc = docx.Document(request.FILES['file'])
-    print(doc.tables[0].cell(0, 0).text)
-    return HttpResponse(doc)
+
+    parser = DocParser()
+    parser.parse_tables()
+
+    return HttpResponse(parser.vectors)
