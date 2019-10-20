@@ -1,7 +1,8 @@
 import docx
-import config
+from . import config
 import pickle
 import re
+import os
 
 def remove_chars(line, chars):
 	return re.sub(r'[' + chars + r']', "", line)
@@ -60,9 +61,11 @@ class ServiceCounter:
 
 	def count_services(self, contract):
 		counter = 0
-		with open(config.KEYWORDS_FILE, 'rb') as f:
+		current_path = os.path.dirname(__file__)
+		keyword_path = os.path.join(current_path, config.KEYWORDS_FILE)
+		with open(keyword_path, 'rb') as f:
 			self.keywords = pickle.load(f)
-
+		
 		tables = contract.tables
 
 		for table in tables:

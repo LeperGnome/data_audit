@@ -1,0 +1,56 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Сервис</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+	<div class="body-wrapper">
+			<div class="header">
+				<ul class="header-list">
+					<li><a class="header-brand" href="#">Gos0<i class="fa fa-circle"></i>rg</a>
+					<li><a href="{% url 'index' %}">Gos_org@gmail.com</a></a>
+				</ul>
+			</div>
+			<div class="main-wrapper">
+			    <!--<div class="bottom-header">
+				    <ul class="navigation">
+					    <li><a class="navigation_link" href="#">API</a></li>
+					    <li><a class="navigation_link" href="#">Документация</a></li>
+					    <li><a class="navigation_link" href="#">Параметры</a></li>
+				    </ul>
+			    </div>-->
+		    </div>
+		    <div class="content">
+                    <form action="{% url 'send_file' %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                       <p><input type="file" name="file", size="300">
+            <input type="submit" value="Отправить"></p>
+        </form> 
+        <img class="content-img" src="{% static 'img/img-front.png' %}">
+		</div>
+    </div>
+<style>
+.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+.tftable tr {background-color:#d4e3e5;}
+.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+.tftable tr:hover {background-color:#ffffff;}
+</style>
+
+<table class="tftable" border="1">
+<tr><th>Параметр</th><th>Среднее значение</th><th>Ваш договор</th></tr>
+<tr><td>Кол-во услуг</td><td>{{service_size}}</td><td>{{service_size}}</td></tr>
+<tr><td>Стоимость</td><td>15000000</td><td>{{our_price}}</td></tr>
+</table>
+
+<p><small> <a href="http://daruse.ru/" target="_blank">by daruse.ru</a></small></p>
+<footer>
+<p>+7(910)864-28-83</p>
+<p>2019 Все права защищены.</p>
+</footer>
+</body>
+</html>
