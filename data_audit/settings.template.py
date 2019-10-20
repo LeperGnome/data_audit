@@ -120,3 +120,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CLEANING_KEYWORDS = [['площадь', 'м2', 'м²'], ['дней', 'период'], ['стоимость', 'цена']]
+BOT_TOKEN = ''
