@@ -31,10 +31,11 @@ class DocParser:
 
     @staticmethod
     def format_cell(cell):
-        cell.text.replace(u'\xa0', '')
+        cell.text = cell.text.replace(u'\xa0', ' ')
         cell.text = cell.text.strip()
-        # cell.text = re.sub(r'\\x..', '', cell.text)
+        cell.text = re.sub(r' ', '', cell.text)
         cell.text = re.sub(',', '.', cell.text)
+
         return cell
 
     def clear_vetors(self, vectors):
