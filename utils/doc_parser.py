@@ -3,11 +3,12 @@ import re
 import io
 from collections import defaultdict
 from docx import Document
+from django.conf import settings
 
 
 class DocParser:
-    def __init__(self, keywords, data_path="test_data/test_1.docx"):
-        self.document = self.read_doc(data_path)
+    def __init__(self, keywords=settings.CLEANING_KEYWORDS, file="test_data/test_1.docx"):
+        self.document = self.read_doc(file)
         self.keywords = keywords
         self.vectors = []
 
@@ -18,7 +19,7 @@ class DocParser:
         return document
 
     def is_header(self, cell):
-        if any(keyword in cell.text.lower() for keyword in self.keywords):
+        if any(keyword in cell.text.lower() for keyword in sum(self.keywords, [])):
             return True
         else:
             return False
@@ -46,7 +47,7 @@ class DocParser:
         del_rows = set()
         for key in table_vectors.keys():
             row = table_vectors[key]
-            if not all(any(keyword in vector_key for vector_key in table_vectors[key].keys()) for keyword in self.keywords):
+            if not all(any(any(keyword in vector_key for keyword in keyword_set) for vector_key in table_vectors[key].keys()) for keyword_set in self.keywords):
                 del_rows.add(key)
         table_vectors = self.del_dict_empty(table_vectors, del_rows)
         return table_vectors
@@ -67,10 +68,3 @@ class DocParser:
             table_values = self.clear_table_vetors(table_values)
             self.vectors.append(table_values)
         self.vectors = [vector for vector in self.vectors if vector]
-
-
-if __name__ == "__main__":
-    keywords = ['площадь', 'дней', 'стоимость']
-    parser = DocParser(keywords, 'test_data/test_1.docx')
-    parser.parse_tables()
-    print(parser.vectors)
