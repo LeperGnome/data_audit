@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import docx
-from .count_services import ServiceCounter
+from count_services.count_services import ServiceCounter
 import numpy as np
 
 def index(request):
